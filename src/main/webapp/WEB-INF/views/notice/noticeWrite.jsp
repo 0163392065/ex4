@@ -10,7 +10,7 @@
 	<h2>NoticeWrite	</h2>
 	<form action="notice${path }" method="post">
 	<div>
-		<input type="hidden" name="num" id="num" value="${dto.num }">
+		 <input type="hidden" name="num" id="num" value="${dto.num }"> 
 	</div>
 		<table>
 		<tr>

@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class NoticeDTO {
 	
-	private int num;
+	private Integer num;
 	private String writer;
 	private String title;
 	private String contents;
 	private Date reg_date;
 	private int hit;
 	
-	public int getNum() {
+	public Integer getNum() {
 		return num;
 	}
-	public void setNum(int num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 	public String getWriter() {
