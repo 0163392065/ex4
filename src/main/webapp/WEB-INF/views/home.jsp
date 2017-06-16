@@ -6,7 +6,7 @@
 </head>
 <body>
 <a href="notice/noticeList">NoticeList</a>
-<a href="freeBoard">freeBoard</a>
+<a href="freeBoard/freeBoardList">freeBoard</a>
 <h1>
 	Hello world!  
 </h1>

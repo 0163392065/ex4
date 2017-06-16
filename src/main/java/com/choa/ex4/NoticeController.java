@@ -11,34 +11,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.choa.board.BoardDTO;
 import com.choa.notice.NoticeDTO;
-import com.choa.notice.NoticeService;
+import com.choa.notice.NoticeServiceImpl;
 
 @Controller
 @RequestMapping(value="/notice/**")
 public class NoticeController {
 
-	@Inject//type
-	private NoticeService noticeService;
+	@Inject
+	private NoticeServiceImpl noticeService;
 	
-	@RequestMapping(value="notice")
-	public void test(){
-		System.out.println("noticeService : "+noticeService);
-		noticeService.test();
-	}
-	
+		
 	//list
 	@RequestMapping(value="noticeList", method=RequestMethod.GET)
-	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage) throws Exception{
-		List<NoticeDTO> ar = noticeService.noticeList(curPage);
+	public String noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage) throws Exception{
+		List<BoardDTO> ar = noticeService.boardList(curPage);
 		model.addAttribute("list", ar);
+		model.addAttribute("board", "notice");
+		return "board/boardList";
 	}
 	
 	//View
 	@RequestMapping(value="noticeView", method=RequestMethod.GET)
 	public void noticeView(Integer num, Model model) throws Exception{
-		NoticeDTO noticeDTO=noticeService.noticeView(num);
+		BoardDTO noticeDTO=noticeService.boardView(num);
 		model.addAttribute("dto", noticeDTO);
+		model.addAttribute("board", "notice");
 	}
 	
 	//writeForm
@@ -50,19 +49,19 @@ public class NoticeController {
 	//write 
 	@RequestMapping(value="noticeWrite", method=RequestMethod.POST)
 	public String noticeWrite(NoticeDTO noticeDTO, RedirectAttributes rd)throws Exception{
-		int result=noticeService.noticeWrite(noticeDTO);
+		int result=noticeService.boardWrite(noticeDTO);
 		String message = "FAIL";
 		if(result>0){
 			message="SUCCESS";
 		}
 		rd.addFlashAttribute("message", message);
-		return "redirect:noticeList?curPage=2";
+		return "redirect:noticeList?curPage=1";
 	}
 	
 	//update
 	@RequestMapping(value="noticeUpdate", method=RequestMethod.GET)
 	public String noticeUpdate(Integer num, Model model) throws Exception{
-		NoticeDTO noticeDTO = noticeService.noticeView(num);
+		BoardDTO noticeDTO = noticeService.boardView(num);
 		model.addAttribute("dto", noticeDTO);
 		model.addAttribute("path", "Update");
 		return "notice/noticeWrite";
@@ -70,7 +69,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="noticeUpdate", method=RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
-		int result = noticeService.noticeUpdate(noticeDTO);
+		int result = noticeService.boardUpdate(noticeDTO);
 		String message = "FAIL";
 		if(result>0){
 			message="SUCCESS";
@@ -80,8 +79,11 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="noticeDelete", method=RequestMethod.GET)
-	public void noticeDelete(Integer num){
-		int result = noticeService.noticeDelete(num);
+	public void noticeDelete(Integer num)throws Exception{
+		int result = noticeService.boardDelete(num);
+		if(result>0){
+			
+		}
 	}
 	
 	
