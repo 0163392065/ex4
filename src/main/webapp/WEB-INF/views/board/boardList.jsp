@@ -32,7 +32,7 @@
 				<!-- catch로 예외처리 -->
 				<c:catch>
 				<c:forEach begin="1" end="${dto.depth }">-></c:forEach></c:catch>
-				<a href="noticeView?num=${dto.num }">${dto.title }</a></td>
+				<a href="${board }View?num=${dto.num }">${dto.title }</a></td>
 				<td>${dto.writer }</td>
 				<td>${dto.reg_date }</td>
 				<td>${dto.hit }</td>

@@ -1,5 +1,6 @@
 package com.choa.ex4;
 
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import com.choa.board.BoardDTO;
 import com.choa.notice.NoticeDAOImpl;
 import com.choa.notice.NoticeDTO;
 import com.choa.util.PageMaker;
@@ -21,7 +23,66 @@ import com.choa.util.RowMaker;
 public class TestCase extends MyAbstractTest{
 
 	@Autowired
-	private NoticeDAOImpl noticeDAO;
+	private NoticeDAOImpl noticeDAOImpl;
+	
+/*	@Test
+	public void connectionTest(){
+		assertNotNull(sqlSession);
+		System.out.println("test");
+	}*/
+	
+	//@Test
+	public void noticeView() throws Exception{
+		BoardDTO boardDTO = noticeDAOImpl.boardView(564);
+		System.out.println(boardDTO.getWriter());
+		assertNotNull(boardDTO);
+	}
+	
+	//@Test
+	public void noticeWrite() throws Exception{
+		NoticeDTO noticeDTO = new NoticeDTO();
+		noticeDTO.setWriter("choa");
+		noticeDTO.setTitle("test!!");
+		noticeDTO.setContents("싸인회 하나유?");
+		int result = noticeDAOImpl.boardWrite(noticeDTO);
+		System.out.println(result);
+		assertEquals(1, result);
+	}
+	
+	//@Test
+	public void noticeUpdate() throws Exception{
+		NoticeDTO noticeDTO = new NoticeDTO();
+		noticeDTO.setTitle("updatetest!!");
+		noticeDTO.setContents("싸인회 하는겁니까?");
+		noticeDTO.setNum(581);
+		int result = noticeDAOImpl.boardUpdate(noticeDTO);
+		System.out.println(result);
+		assertEquals(1, result);
+	}
+	
+	//@Test
+	public void noticeDelete() throws Exception{
+		int result = noticeDAOImpl.boardDelete(554);
+		System.out.println(result);
+		assertEquals(1, result);
+	}
+	
+	@Test
+	public void noticeList() throws Exception{
+		PageMaker pageMaker = new PageMaker(1, 20);
+		List<BoardDTO> ar = noticeDAOImpl.boardList(pageMaker.getRowMaker());
+		assertNotEquals(0, ar.size());
+	}
+	
+	@Test
+	public void noticeCount() throws Exception{
+		int result = noticeDAOImpl.boardCount();
+		System.out.println(result);
+		assertNotEquals(0, result);
+	}
+	
+	/*@Autowired
+	private NoticeDAOImpl noticeDAO;*/
 	
 	//서비스로도 테스트가 가능하다
 	//@Test

@@ -9,22 +9,29 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.choa.board.BoardDAO;
 import com.choa.board.BoardDTO;
 import com.choa.util.DBConnect;
+import com.choa.util.PageMaker;
 import com.choa.util.RowMaker;
 
 @Repository("freeBoard")
 public class FreeBoardDAOImpl implements BoardDAO {
    
-   @Inject
-   private DataSource dataSource;
+   /*@Inject
+   private DataSource dataSource;*/
+	@Autowired
+	private SqlSession sqlSession;
+	private static final String NAMESPACE="FreeBoardMapper.";
 
    @Override
    public List<BoardDTO> boardList(RowMaker rowMaker) throws Exception {
-      Connection con = dataSource.getConnection();
+	   return sqlSession.selectList(NAMESPACE+"list", rowMaker);
+/*      Connection con = dataSource.getConnection();
       PreparedStatement st=null;
       ResultSet rs = null;
       String sql="select * from "
@@ -55,12 +62,13 @@ public class FreeBoardDAOImpl implements BoardDAO {
       // close
       DBConnect.disConnect(rs, st, con);
       System.out.println(ar.size());
-      return ar;
+      return ar;*/
    }
 
    @Override
    public BoardDTO boardView(int num) throws Exception {
-      Connection con =dataSource.getConnection();
+	   return sqlSession.selectOne(NAMESPACE+"view", num);
+/*      Connection con =dataSource.getConnection();
       PreparedStatement st=null;
       ResultSet rs = null;
       String sql="select * from freeboard where num=?";
@@ -85,12 +93,13 @@ public class FreeBoardDAOImpl implements BoardDAO {
       //close
       DBConnect.disConnect(rs, st, con);
    
-      return freeBoardDTO;
+      return freeBoardDTO;*/
    }
 
    @Override
    public int boardWrite(BoardDTO boardDTO) throws Exception {
-      Connection con =dataSource.getConnection();
+	   return sqlSession.insert(NAMESPACE+"write", boardDTO);
+/*      Connection con =dataSource.getConnection();
       PreparedStatement st=null;
       int result=0;
       
@@ -106,12 +115,13 @@ public class FreeBoardDAOImpl implements BoardDAO {
       DBConnect.disConnect(st, con);
       
       
-      return result;
+      return result;*/
    }
 
    @Override
    public int boardUpdate(BoardDTO boardDTO) throws Exception {
-      Connection con = dataSource.getConnection();
+	   return sqlSession.update(NAMESPACE+"update", boardDTO);
+/*      Connection con = dataSource.getConnection();
       PreparedStatement st =null;
       String sql =" update freeboard set writer=?, title=? , contents=? where num=?";
       int result =0;
@@ -126,12 +136,13 @@ public class FreeBoardDAOImpl implements BoardDAO {
       //close
       DBConnect.disConnect(st, con);  
       
-      return result;
+      return result;*/
    }
 
    @Override
    public int boardDelete(int num) throws Exception {
-      Connection con = dataSource.getConnection();
+	   return sqlSession.delete(NAMESPACE+"delete", num);
+/*      Connection con = dataSource.getConnection();
       PreparedStatement st =null;
       String sql =" delete freeboard where num=?";
       int result=0;
@@ -143,12 +154,13 @@ public class FreeBoardDAOImpl implements BoardDAO {
       //close
       DBConnect.disConnect(st, con);
       
-      return result;
+      return result;*/
    }
 
    @Override
    public int boardCount() throws Exception {
-      Connection con = dataSource.getConnection();
+	   return sqlSession.selectOne(NAMESPACE+"count");
+/*      Connection con = dataSource.getConnection();
       PreparedStatement st = null;
       ResultSet rs = null;
       int result=0;
@@ -162,13 +174,26 @@ public class FreeBoardDAOImpl implements BoardDAO {
          //close
          DBConnect.disConnect(rs, st, con);
    
-      return result;
+      return result;*/
    }
 
    @Override
    public void boardHit(int num) throws Exception {
-      // TODO Auto-generated method stub
-      
+	   sqlSession.selectOne(NAMESPACE+"hit", num);
+/*	   Connection con = dataSource.getConnection();
+	   PreparedStatement st = null;
+	   int result = 0 ;
+	   
+	   String sql = "update freeboard set hit = hit + 1 where num = ?";
+	   
+	   st = con.prepareStatement(sql);
+	   st.setInt(1, num);
+	   result=st.executeUpdate();
+	   
+	   DBConnect.disConnect(st, con);*/
+	   
+
    }
+   
    
 }

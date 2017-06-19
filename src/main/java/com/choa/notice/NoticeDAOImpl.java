@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +22,9 @@ import com.choa.util.RowMaker;
 public class NoticeDAOImpl implements BoardDAO{
 	
 	@Autowired
-	private DataSource dataSource;
+	/*private DataSource dataSource;*/
+	private SqlSession sqlSession;
+	private static final String NAMESPACE="NoticeMapper.";
 	
 		
 	/*public void setDataSource(DataSource dataSource) {
@@ -30,7 +33,10 @@ public class NoticeDAOImpl implements BoardDAO{
 
 	@Override
 	public List<BoardDTO> boardList(RowMaker rowMaker) throws Exception {
-		Connection con = dataSource.getConnection();
+		return sqlSession.selectList(NAMESPACE+"list", rowMaker);
+		
+/*		Connection con = null;
+		//	Connection con = dataSource.getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		List<BoardDTO> ar = new ArrayList<BoardDTO>();
@@ -58,11 +64,16 @@ public class NoticeDAOImpl implements BoardDAO{
 		
 		DBConnect.disConnect(rs, st, con);
 		
-		return ar;
+		return ar;*/
 	}
 	@Override
 	public BoardDTO boardView(int num) throws Exception {
-		Connection con = dataSource.getConnection();
+		
+		BoardDTO boardDTO = sqlSession.selectOne(NAMESPACE+"view", num);
+		
+		return boardDTO;
+		
+/*		Connection con = dataSource.getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		NoticeDTO noticeDTO=null;
@@ -86,11 +97,13 @@ public class NoticeDAOImpl implements BoardDAO{
 		
 		//close
 		DBConnect.disConnect(rs, st, con);
-		return noticeDTO;
+		return noticeDTO;*/
 	}
 	@Override
-	public int boardWrite(BoardDTO boardDTO) throws Exception {
-		Connection con = dataSource.getConnection();
+	public int boardWrite(BoardDTO boardDTO) throws Exception {		
+		
+		return sqlSession.insert(NAMESPACE+"write", boardDTO);
+/*		Connection con = null;
 		PreparedStatement st= null;
 		int result=0;
 		
@@ -102,11 +115,12 @@ public class NoticeDAOImpl implements BoardDAO{
 		result = st.executeUpdate();
 		
 		DBConnect.disConnect(st, con);
-		return result;
+		return result;*/
 	}
 	@Override
 	public int boardUpdate(BoardDTO boardDTO) throws Exception {
-		Connection con = dataSource.getConnection();
+		return sqlSession.update(NAMESPACE+"update", boardDTO);
+/*		Connection con = null;
 		PreparedStatement st= null;
 		int result=0;
 		
@@ -118,11 +132,13 @@ public class NoticeDAOImpl implements BoardDAO{
 		result = st.executeUpdate();
 		
 		DBConnect.disConnect(st, con);
-		return result;
+		return result;*/
 	}
 	@Override
 	public int boardDelete(int num) throws Exception {
-		Connection con = dataSource.getConnection();
+		
+		return sqlSession.delete(NAMESPACE+"delete", num);
+/*		Connection con = null;
 		PreparedStatement st = null;
 		int result = 0;
 		
@@ -134,12 +150,13 @@ public class NoticeDAOImpl implements BoardDAO{
 		
 		DBConnect.disConnect(st, con);
 		
-		return result;
+		return result;*/
 	}
 	
 	@Override
 	public int boardCount() throws Exception {
-		Connection con = dataSource.getConnection();
+		return sqlSession.selectOne(NAMESPACE+"count");
+/*		Connection con = null;
 		PreparedStatement st= null;
 		ResultSet rs = null;
 		
@@ -155,7 +172,7 @@ public class NoticeDAOImpl implements BoardDAO{
 		
 		DBConnect.disConnect(rs, st, con);
 		
-		return result;
+		return result;*/
 	}
 	@Override
 	public void boardHit(int num) throws Exception {

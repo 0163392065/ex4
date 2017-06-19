@@ -33,16 +33,21 @@ public class FreeBoardController {
 	
 	//View
 	@RequestMapping(value="freeBoardView", method=RequestMethod.GET)
-	public void freeBoardView(Integer num, Model model) throws Exception{
+	public String freeBoardView(Integer num, Model model) throws Exception{
 		BoardDTO freeBoardDTO=freeBoardServiceImpl.boardView(num);
 		model.addAttribute("dto", freeBoardDTO);
 		model.addAttribute("board", "freeBoard");
+		
+		return "board/boardView";
 	}
 	
 	//writeForm
 	@RequestMapping(value="freeBoardWrite", method=RequestMethod.GET)
-	public void freeBoardWrite(Model model){
+	public String freeBoardWrite(Model model){
 		model.addAttribute("path", "Write");
+		model.addAttribute("board", "freeBoard");
+		
+		return "board/boardWrite";
 	}
 	
 	//write 
@@ -63,7 +68,7 @@ public class FreeBoardController {
 		BoardDTO freeBoardDTO = freeBoardServiceImpl.boardView(num);
 		model.addAttribute("dto", freeBoardDTO);
 		model.addAttribute("path", "Update");
-		return "freeBoard/freeBoardWrite";
+		return "board/boardWrite";
 	}
 	
 	@RequestMapping(value="freeBoardUpdate", method=RequestMethod.POST)
