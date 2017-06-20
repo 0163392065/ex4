@@ -16,6 +16,17 @@
 <body>
 	<!-- List제목 -->
 	<h2>${board }List</h2>
+	<div>
+		<form action="${board }List">
+			<select name="search">
+				<option value="title">TITLE</option>
+				<option value="writer">WRITER</option>
+				<option value="contents">CONTENTS</option>
+			</select>
+			<input type="text" name="find">
+			<input type="submit" name="SERACH">
+		</form>
+	</div>
 	
 	<table>
 		<tr>

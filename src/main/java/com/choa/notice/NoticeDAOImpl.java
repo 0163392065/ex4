@@ -24,6 +24,7 @@ public class NoticeDAOImpl implements BoardDAO{
 	@Autowired
 	/*private DataSource dataSource;*/
 	private SqlSession sqlSession;
+	//Mapper를 또 사용하게 되면 하나 더 선언하면 된다.
 	private static final String NAMESPACE="NoticeMapper.";
 	
 		

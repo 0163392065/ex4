@@ -56,7 +56,7 @@
 		    <version>2.1.1</version>
 		</dependency>
 		
-	
+		<!-- ojdbc -->	
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
