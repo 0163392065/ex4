@@ -18,7 +18,6 @@ public class PageMaker {
 	}
 	
 	
-	
 	//startRow, lastRow
 	public RowMaker getRowMaker(){
 		RowMaker rowMaker = new RowMaker();

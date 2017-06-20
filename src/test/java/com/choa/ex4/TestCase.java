@@ -15,6 +15,7 @@ import java.util.List;
 import com.choa.board.BoardDTO;
 import com.choa.notice.NoticeDAOImpl;
 import com.choa.notice.NoticeDTO;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
 import com.choa.util.RowMaker;
 
@@ -67,7 +68,7 @@ public class TestCase extends MyAbstractTest{
 		assertEquals(1, result);
 	}
 	
-	@Test
+	//@Test
 	public void noticeList() throws Exception{
 		PageMaker pageMaker = new PageMaker(1, 20);
 		String search = "writer";
@@ -78,9 +79,12 @@ public class TestCase extends MyAbstractTest{
 		assertNotEquals(0, ar.size());
 	}
 	
-	//@Test
+	@Test
 	public void noticeCount() throws Exception{
-		int result = noticeDAOImpl.boardCount();
+		ListInfo listInfo = new ListInfo();
+		listInfo.setFind("t");
+		listInfo.setSearch("title");
+		int result = noticeDAOImpl.boardCount(listInfo);
 		System.out.println(result);
 		assertNotEquals(0, result);
 	}

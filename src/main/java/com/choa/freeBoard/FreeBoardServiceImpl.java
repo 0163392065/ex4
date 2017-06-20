@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.choa.board.BoardDTO;
 import com.choa.board.BoardService;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
 
 
@@ -19,11 +20,12 @@ public class FreeBoardServiceImpl implements BoardService{
 	private FreeBoardDAOImpl freeBoardDAOImpl;
 	
 	@Override
-	public List<BoardDTO> boardList(int curPage, String search, String find) throws Exception {
-		int result = freeBoardDAOImpl.boardCount();
-		PageMaker pageMaker = new PageMaker(curPage, result);
-		List<BoardDTO> ar = freeBoardDAOImpl.boardList(pageMaker.getRowMaker(), search, find);
-		return ar;
+	public List<BoardDTO> boardList(ListInfo listInfo) throws Exception {
+		int result = freeBoardDAOImpl.boardCount(listInfo);
+		listInfo.makePage(result);
+		listInfo.makeRow();		
+		
+		return freeBoardDAOImpl.boardList(listInfo);
 	}
 
 	@Override
