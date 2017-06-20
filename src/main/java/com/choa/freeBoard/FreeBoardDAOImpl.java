@@ -29,7 +29,7 @@ public class FreeBoardDAOImpl implements BoardDAO {
 	private static final String NAMESPACE="FreeBoardMapper.";
 
    @Override
-   public List<BoardDTO> boardList(RowMaker rowMaker) throws Exception {
+   public List<BoardDTO> boardList(RowMaker rowMaker, String search, String find) throws Exception {
 	   return sqlSession.selectList(NAMESPACE+"list", rowMaker);
 /*      Connection con = dataSource.getConnection();
       PreparedStatement st=null;

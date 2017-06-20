@@ -25,10 +25,10 @@ public class NoticeServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public List<BoardDTO> boardList(int curPage) throws Exception {
+	public List<BoardDTO> boardList(int curPage, String search, String find) throws Exception {
 		int result = noticeDAO.boardCount();
 		PageMaker pageMaker = new PageMaker(curPage, result);
-		List<BoardDTO> ar = noticeDAO.boardList(pageMaker.getRowMaker());
+		List<BoardDTO> ar = noticeDAO.boardList(pageMaker.getRowMaker(), search, find);
 		return ar;
 	}
 

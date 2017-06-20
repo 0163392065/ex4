@@ -24,8 +24,8 @@ public class FreeBoardController {
 	
 	//list
 	@RequestMapping(value="freeBoardList", method=RequestMethod.GET)
-	public String freeBoardList(Model model, @RequestParam(defaultValue="1") Integer curPage) throws Exception{
-		List<BoardDTO> ar = freeBoardServiceImpl.boardList(curPage);
+	public String freeBoardList(Model model, @RequestParam(defaultValue="1") Integer curPage, String search, String find) throws Exception{
+		List<BoardDTO> ar = freeBoardServiceImpl.boardList(curPage, search, find);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "freeBoard");
 		return "board/boardList";

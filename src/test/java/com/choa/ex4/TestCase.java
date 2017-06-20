@@ -70,11 +70,15 @@ public class TestCase extends MyAbstractTest{
 	@Test
 	public void noticeList() throws Exception{
 		PageMaker pageMaker = new PageMaker(1, 20);
-		List<BoardDTO> ar = noticeDAOImpl.boardList(pageMaker.getRowMaker());
+		String search = "writer";
+		String find = "choa";
+		List<BoardDTO> ar = noticeDAOImpl.boardList(pageMaker.getRowMaker(), search, find);
+		System.out.println(ar.get(0).getWriter());
+		System.out.println(ar.get(1).getWriter());
 		assertNotEquals(0, ar.size());
 	}
 	
-	@Test
+	//@Test
 	public void noticeCount() throws Exception{
 		int result = noticeDAOImpl.boardCount();
 		System.out.println(result);

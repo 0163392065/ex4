@@ -25,8 +25,8 @@ public class NoticeController {
 		
 	//list
 	@RequestMapping(value="noticeList", method=RequestMethod.GET)
-	public String noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage) throws Exception{
-		List<BoardDTO> ar = noticeService.boardList(curPage);
+	public String noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, String search, String find) throws Exception{
+		List<BoardDTO> ar = noticeService.boardList(curPage, search, find);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
 		return "board/boardList";
