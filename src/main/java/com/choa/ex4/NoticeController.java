@@ -29,6 +29,9 @@ public class NoticeController {
 		List<BoardDTO> ar = noticeService.boardList(curPage, search, find);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("search", search);
+		model.addAttribute("find", find);
 		return "board/boardList";
 	}
 	

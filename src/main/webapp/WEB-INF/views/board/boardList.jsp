@@ -52,5 +52,10 @@
 	</table>
 	<a href="../">home</a>
 	<a href="${board }Write">WRITE</a>
+	<div>
+		<p>curPage : ${curPage }</p>
+		<p>SEARCH : ${search }</p>
+		<p>FIND : ${find }</p>
+	</div>
 </body>
 </html>
